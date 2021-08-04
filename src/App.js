@@ -1,108 +1,74 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
-const items = {
-  name: "one",
-  id: 1,
-  subItems: [
-    {
-      name: "one-1",
-      id: 2,
-      subItems: [
-        {
-          name: "one-2",
-          id: 3,
-          subItems: [
-            {
-              name: "one-3",
-              id: 4,
-              subItems: [
-                {
-                  name: "one-4",
-                  id: 5,
-                  subItems: [],
-                  fields: [
-                    {
-                      name: "regiao",
-                    },
-                    { name: "cargo" },
-                  ],
-                },
-              ],
-            },
-
-            {
-              name: "one-7",
-              id: 7,
-              subItems: [
-                {
-                  name: "one-8",
-                  id: 8,
-                  subItems: [],
-                  fields: [
-                    {
-                      name: "regiao",
-                    },
-                    { name: "cargo" },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: "two",
-      id: 6,
-      subItems: [
-        {
-          name: "two-1",
-          id: 7,
-          subItems: [],
-          fields: [
-            {
-              name: "cavalo",
-            },
-            { name: "cabra" },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
-const File = ({ id, name, subItems }) => {
-  const [showSubItems, SetShowSubItems] = useState(false);
-
-  const handleClick = useCallback(() => {
-    SetShowSubItems(!showSubItems);
-  }, [showSubItems, SetShowSubItems]);
-  return (
-    <div>
-      <span onClick={handleClick}>
-        <h4 style={{ fontWeight: showSubItems ? "bold" : "normal" }}>{name}</h4>
-      </span>
-      <div
-        style={{
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          left: 25,
-          borderLeft: "1px solid",
-          paddingLeft: 15,
-        }}
-      >
-        {showSubItems && subItems.map((node) => <File {...node} />)}
-      </div>
-    </div>
-  );
-};
-
 function App() {
+  const items = [
+    {
+      name: "1",
+      id: 1,
+    },
+    {
+      name: "2",
+      id: 2,
+    },
+    {
+      name: "3",
+      id: 3,
+    },
+    {
+      name: "4",
+      id: 4,
+    },
+    {
+      name: "5",
+      id: 5,
+    },
+    {
+      name: "6",
+      id: 6,
+    },
+    {
+      name: "7",
+      id: 7,
+    },
+    {
+      name: "8",
+      id: 8,
+    },
+  ];
+
+  const [notas, setNotas] = useState([]);
+
+  const handleChange = (index, id, event) => {
+    // notas[index] = { id: id, value: event.target.value };
+    setNotas({ ...notas, [id]: event.target.value });
+  };
+
+  const handleSubmit = () => console.log(notas);
+
   return (
-    <div style={{ marginLeft: 15 }}>
-      <File {...items} />
+    <div
+      style={{
+        marginLeft: 15,
+        display: "flex",
+        flexDirection: "column",
+        width: "400px",
+        alignItems: "start",
+      }}
+    >
+      <h1>OAAAAAA</h1>
+      {items.map((value, index) => {
+        return (
+          <>
+            <label>{value.name}</label>
+            <input
+              style={{ marginBottom: "10px" }}
+              onChange={(event) => handleChange(index, value.id, event)}
+            />
+          </>
+        );
+      })}
+      <button onClick={handleSubmit}>Click</button>
     </div>
   );
 }
